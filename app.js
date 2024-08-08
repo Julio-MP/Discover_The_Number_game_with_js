@@ -1,36 +1,27 @@
-let arrayNumbers = []
+
 let secretNumber = ramdomNumber();
-
-arrayNumbers.push(secretNumber)
-localStorage.setItem('arrayNumbers', JSON.stringify(arrayNumbers));
-const stored = JSON.parse(localStorage.getItem('arrayNumbers'));
-
-
-
-arrayNumbers.push(secretNumber);
-console.log(arrayNumbers)
 
 
 let attempts = 1
 
 
-//Aqui a função escreve a mensagem do criador do jogo na tela, mas ela não armazena nada, por isso usamos um parametro dentro da função (pra escrever o texto que a gente quer que ele seja escrito) mas não usou return porque não queremos que ele salve nada (o texto que ele escreveu ficou "perdido" na memoria do programa, mas ta na tela que é isso que importa)
-function rightThings(tag, text) {
+// Here the function writes the message from the game creator on the screen, but it doesn't store anything, so we use a parameter inside the function (to write the text we want it to be written) but we didn't use return because we don't want it to save anything (the text it wrote was "lost" in the program's memory, but it's on the screen, which is what matters)
+function enterNumber(tag, text) {
     let tittle = document.querySelector(tag);
     tittle.innerHTML = text;
 }
 
 
-rightThings('h1', 'Secrete Number Game')
+enterNumber('h1', 'Secrete Number Game')
 
-rightThings('p', 'Choose a number between 1 and 100')
+enterNumber('p', 'Choose a number between 1 and 100')
 
-// Aqui a gente quer qeu ele execute uma função mais automata 
+// Here we want it to execute a more automated function
 function verifytheGuess() {
     let theGuess = document.querySelector('input').value;
     if (theGuess == secretNumber) {
-        rightThings('h1', 'You Win!');
-        rightThings('p', `Number of attempts: ${attempts}`);
+        enterNumber('h1', 'You Win!');
+        enterNumber('p', `Number of attempts: ${attempts}`);
         document.getElementById('restart').removeAttribute('disabled')
         
         
@@ -39,12 +30,17 @@ function verifytheGuess() {
     
     else {
         if (theGuess > secretNumber) {
-            rightThings('p', `It's lower than ${theGuess}`);
+            enterNumber('p', `It's lower than ${theGuess}`);
             
         }
 
+        else if (theGuess == '') {
+            enterNumber('p', `Enter a valid number`)
+            attempts --
+        }
+
         else {
-            rightThings('p', `It's bigger than ${theGuess}`);
+            enterNumber('p', `It's bigger than ${theGuess}`);
             
         }
         attempts++
@@ -61,7 +57,7 @@ document.addEventListener('keydown', function(event) {
 
 })
 
-//Aqui a gente quer que ele gere um numero pra gente usa-lo no sistema depois, então temos que salvar esse numero, e pra isso a gente usa o return 
+//Here we want it to generate a number for us to use in the system later, so we have to save this number, and for that we use return
 function ramdomNumber() {
     return parseInt(Math.random() *100 +1);
     
@@ -76,5 +72,3 @@ function cleanInput() {
 function restart() {
     location.reload();
 }
-
-console.log(secretNumber);
