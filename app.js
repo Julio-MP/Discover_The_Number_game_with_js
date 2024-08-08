@@ -1,4 +1,16 @@
+let arrayNumbers = []
 let secretNumber = ramdomNumber();
+
+arrayNumbers.push(secretNumber)
+localStorage.setItem('arrayNumbers', JSON.stringify(arrayNumbers));
+const stored = JSON.parse(localStorage.getItem('arrayNumbers'));
+
+
+
+arrayNumbers.push(secretNumber);
+console.log(arrayNumbers)
+
+
 let attempts = 1
 
 
@@ -19,7 +31,8 @@ function verifytheGuess() {
     if (theGuess == secretNumber) {
         rightThings('h1', 'You Win!');
         rightThings('p', `Number of attempts: ${attempts}`);
-        cleanInput()
+        document.getElementById('restart').removeAttribute('disabled')
+        
         
     
     }
@@ -35,23 +48,33 @@ function verifytheGuess() {
             
         }
         attempts++
-        cleanInput()
+        cleanInput();
     }
     
+
 }
+
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        verifytheGuess();}
+
+})
 
 //Aqui a gente quer que ele gere um numero pra gente usa-lo no sistema depois, então temos que salvar esse numero, e pra isso a gente usa o return 
 function ramdomNumber() {
-    return parseInt(Math.random() *100 +1)
+    return parseInt(Math.random() *100 +1);
+    
 }
 
 function cleanInput() {
-    Guess = document.querySelector('input')
-    Guess.value = ''
+    Guess = document.querySelector('input');
+    Guess.value = '';
+    Guess.focus()
 }
 
 function restart() {
-    location.reload()
+    location.reload();
 }
 
-console.log(secretNumber)
+console.log(secretNumber);
