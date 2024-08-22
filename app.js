@@ -30,7 +30,7 @@ function verifytheGuess() {
     
     else {
         if (theGuess > secretNumber) {
-            enterNumber('p', `It's lower than ${theGuess}`);
+            enterNumber('p', `It's less than ${theGuess}`);
             
         }
 
@@ -40,7 +40,7 @@ function verifytheGuess() {
         }
 
         else {
-            enterNumber('p', `It's bigger than ${theGuess}`);
+            enterNumber('p', `It's greater than ${theGuess}`);
             
         }
         attempts++
